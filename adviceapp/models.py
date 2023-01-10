@@ -13,7 +13,7 @@ class Carearticle(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
     article_image = CloudinaryField('image', default='placeholder')
     article_excerpt = models.TextField(blank=True)
-    articel_content = models.TextField()
+    content = models.TextField()
     approved_status = models.IntegerField(choices=STATUS, default=0)
     bookmarks = models.ManyToManyField(User, related_name='bookmark', default=None, blank=True)
     helpful_ticks = models.ManyToManyField(User, related_name='carearticle_tick', blank=True)
@@ -23,7 +23,7 @@ class Carearticle(models.Model):
         ordering = ['-created_on']
 
     def __str__(self):
-        return self.title
+        return self.article_title
 
     def number_of_ticks(self):
         return self.helpful_ticks.count()
