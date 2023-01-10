@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import Carearticle
+from django_summernote import SummernoteModelAdmin
 
-# Register your models here.
+@admin.register(Carearticle)
+class ArticleAdmin(SummernoteModelAdmin):
+    summernote_fields = (articel_content)

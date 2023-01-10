@@ -1,21 +1,19 @@
 from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
-from django_extensions.db.fields import AutoSlugField
-from .validators import textfield_not_empty
 
 STATUS = ((0, "Content Not Checked"), (1, "Content Checked for Publishing"))
 
 """Model for Care Article"""
 class Carearticle(models.Model):
-    article_title = models.CharField(max_length=170, unique=True)
-    slug = AutoSlugField(populate_from='title', unique=True) 
+    article_title = models.CharField(max_length=190, unique=True)
+    slug = models.SlugField(max_length=190, unique=True)
     article_author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="care_posts")
     created_on = models.DateTimeField(auto_now=True)
     updated_on = models.DateTimeField(auto_now=True)
     article_image = CloudinaryField('image', default='placeholder')
     article_excerpt = models.TextField(blank=True)
-    articel_content = models.TextField(validators=[textfield_not_empty])
+    articel_content = models.TextField()
     approved_status = models.IntegerField(choices=STATUS, default=0)
     bookmarks = models.ManyToManyField(User, related_name='bookmark', default=None, blank=True)
     helpful_ticks = models.ManyToManyField(User, related_name='carearticle_tick', blank=True)
@@ -33,7 +31,7 @@ class Carearticle(models.Model):
 
 """Model for Comments"""
 class Article_comments(models.Model):
-    article_comment = models.ForeignKey(Post, on_delete=models.CASCADE,
+    article_comment = models.ForeignKey(Carearticle, on_delete=models.CASCADE,
                              related_name='comments')
     name = models.CharField(max_length=90)
     email = models.EmailField()
