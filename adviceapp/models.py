@@ -14,15 +14,15 @@ class Carearticle(models.Model):
     created_on = models.DateTimeField(auto_now=True)
     updated_on = models.DateTimeField(auto_now=True)
     article_image = CloudinaryField('image', default='placeholder')
-    excerpt = models.TextField(blank=True)
-    content = models.TextField(validators=[textfield_not_empty])
+    article_excerpt = models.TextField(blank=True)
+    articel_content = models.TextField(validators=[textfield_not_empty])
     approved_status = models.IntegerField(choices=STATUS, default=0)
     bookmarks = models.ManyToManyField(User, related_name='bookmark', default=None, blank=True)
     helpful_ticks = models.ManyToManyField(User, related_name='carearticle_tick', blank=True)
 
     """Orders the Articles by date created on, in descending order"""
     class Meta:
-        ordering = ["-created_on"]
+        ordering = ['-created_on']
 
     def __str__(self):
         return self.title
@@ -35,7 +35,7 @@ class Carearticle(models.Model):
 class Article_comments(models.Model):
     article_comment = models.ForeignKey(Post, on_delete=models.CASCADE,
                              related_name='comments')
-    name = models.CharField(max_length=80)
+    name = models.CharField(max_length=90)
     email = models.EmailField()
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
