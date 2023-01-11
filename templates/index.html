@@ -8,27 +8,27 @@
         <!-- Care Articles Entries Column -->
         <div class="col-12 mt-3 left">
             <div class="row">
-                {% for article in article_list %}
+                {% for post in carearticle_list %}
                 <div class="col-md-4">
                     <div class="card mb-4">
                         <div class="card-body">
                             <div class="image-container">
-                                {% if "placeholder" in carearticle.article_image.url %}
+                                {% if "placeholder" in post.article_image.url %}
                                 <img class="card-img-top"
                                     src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg">
                                 {% else %}
                                 <img class="card-img-top" src=" {{ post.article_image }}">
                                 {% endif %}
                                 <div class="image-flash">
-                                    <p class="author">Author: {{ carearticle.article_author }}</p>
+                                    <p class="author">Author: {{ post.article_author }}</p>
                                 </div>
                             </div>
                             <a href="#" class="post-link">
-                                <h2 class="card-title">{{ carearticle.article_title }}</h2>
-                                <p class="card-text">{{ carearticle.article_excerpt }}</p>
+                                <h2 class="card-title">{{ post.article_title }}</h2>
+                                <p class="card-text">{{ post.article_excerpt }}</p>
                             </a>
                             <hr />
-                            <p class="card-text text-muted h6">{{ carearticle.created_on}} <i class="far fa-heart"></i>
+                            <p class="card-text text-muted h6">{{ carearticle.created_on }} <i class="far fa-heart"></i>
                                 {{ carearticle.helpful_ticks }}</p>
                         </div>
                     </div>
