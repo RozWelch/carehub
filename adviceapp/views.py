@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic, View
 from .models import Carearticle
+from .forms import Article_commentsForm
 
 
 """Displays all articles in the browse articles page"""
@@ -27,6 +28,7 @@ class CarearticleDetail(View):
             {
                 "post": post,
                 "comments": comments,
-                "helpful_ticks": helpful_ticks
+                "helpful_ticks": helpful_ticks,
+                "comment_form": Article_commentsForm()
             },
         )
