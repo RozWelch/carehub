@@ -9,15 +9,15 @@
         <div class="col-12 mt-3 left">
             <div class="row">
                 {% for post in carearticle_list %}
-                <div class="col-md-4">
-                    <div class="card mb-4">
+                <div class="col-md-3">
+                    <div class="card mb-3">
                         <div class="card-body">
                             <div class="image-container">
                                 {% if "placeholder" in post.article_image.url %}
                                 <img class="card-img-top"
-                                    src="https://res.cloudinary.com/dsuniqyyu/image/upload/v1673523532/firstaidkit_lores_2511020_evwdjn.jpg">
+                                    src="https://res.cloudinary.com/dsuniqyyu/image/upload/v1673535928/firstaidkit_lores_2511020_az6d85.jpg">
                                 {% else %}
-                                <img class="card-img-top" src=" {{ post.article_image }}">
+                                <img class="card-img-top" src=" {{ post.article_image.url }} ">
                                 {% endif %}
                                 <div class="image-flash">
                                     <p class="author">Author: {{ post.article_author }}</p>
