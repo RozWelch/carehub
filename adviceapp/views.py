@@ -28,6 +28,41 @@ class CarearticleDetail(View):
             {
                 "post": post,
                 "comments": comments,
+                "commented": False,
+                "helpful_ticks": helpful_ticks,
+                "comment_form": Article_commentsForm()
+            },
+        )
+
+
+    def post(self, request, slug, *arges, **kwargs):
+        queryset = Carearticle.objects.filter(approved_status=1)
+        post = get_object_or_404(queryset, slug=slug)
+        comments = post.comments.filter(approved=True).order_by('-created_on')
+        helpful_ticks = False
+        if post.helpful_ticks.filter(id=self.request.user.id).exists():
+            helpful_ticks = True
+
+        comment_form = Article_commentsForm(data=request.POST)
+
+        if comment_form.is_valid():
+            comment_form.instance.email = request.user.email
+            comment_form.instance.name = request.user.username
+            comment = comment_form.save(commit=False)
+            # comment.post = post
+            comment.article_comment = post
+            comment.save()
+        else:
+            comment_form = Article_commentsForm
+
+
+        return render(
+            request, 
+            "post_details.html",
+            {
+                "post": post,
+                "comments": comments,
+                "commented": True,
                 "helpful_ticks": helpful_ticks,
                 "comment_form": Article_commentsForm()
             },
